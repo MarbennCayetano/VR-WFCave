@@ -19,16 +19,6 @@
 
             isInitialized = true;
 
-            var errorFunction = function()
-            {
-                var preloadError = document.getElementById('preloadError');
-                preloadError.style.visibility = 'visible';
-                if(preloadError)
-                    preloadError.innerHTML += '<div style="text-align:left; color:#000; "><DIV STYLE="text-align:center;"><SPAN STYLE="letter-spacing:0px;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#666666;">If you can\'t see this virtual tour, click</SPAN> <SPAN STYLE="color:#0000ff;"><A TARGET="_blank" HREF="http://www.3dvista.com/error.htm" STYLE="text-decoration:none; color:inherit;"><SPAN STYLE="color:#999999;"><U>here</U></SPAN></A></SPAN></SPAN></DIV><DIV STYLE="text-align:center;"><SPAN STYLE="letter-spacing:0px;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#666666;">Si no puede ver esta visita virtual, pulse</SPAN> <SPAN STYLE="color:#0000ff;"><A TARGET="_blank" HREF="http://www.3dvista.com/error.htm" STYLE="text-decoration:none; color:inherit;"><SPAN STYLE="color:#999999;"><U>aquí</U></SPAN></A></SPAN></SPAN></DIV></div>';
-            };
-
-            var timeoutID = setTimeout(errorFunction, 20000);
-
             var beginFunc = function(event){
                 if(event.name == 'begin')
                 {
@@ -37,7 +27,6 @@
                         return;
                 }
 
-                clearTimeout(timeoutID);
                 player.unbindOnObjectsOf('PanoramaPlayListItem', 'begin', beginFunc, player, true);
                 player.unbind('stateChange', beginFunc, player, true);
                 window.parent.postMessage("tourLoaded", '*');
@@ -111,7 +100,6 @@
         {
             var transitionEnd = transitionEndEventName();
             var preloadContainer = document.getElementById('preloadContainer');
-            var preloadError = document.getElementById('preloadError');
 
             
 
@@ -120,7 +108,6 @@
             {
                 preloadContainer.addEventListener(transitionEnd, hide, false);
 
-                preloadError.style.opacity = 0;
                 preloadContainer.style.opacity = 0;
             }
             else
@@ -130,9 +117,7 @@
 
             function hide()
             {
-                preloadError.style.visibility = 'hidden';
                 preloadContainer.style.visibility = 'hidden';
-                preloadError.style.display = 'none';
                 preloadContainer.style.display = 'none';
             }
 
@@ -190,12 +175,10 @@ loadTour()
         html, body { background-color: #000000;  width: 100%; height: 100%; margin: 0; padding: 0; }
         #viewer { background-color: #000000; z-index:1; position:absolute; width: 100%; height: 100%; top: 0; }
         #preloadContainer { z-index:2; position:relative; width:100%; height:100%; transition: opacity 1s; -webkit-transition: opacity 1s; -moz-transition: opacity 1s; -o-transition: opacity 1s;}
-        #preloadError { visibility: hidden; z-index:3; position:absolute; bottom: 10%; width: 100%; text-align: center; transition: opacity 1s; -webkit-transition: opacity 1s; -moz-transition: opacity 1s; -o-transition: opacity 1s;}
     </style>
 </head>
 <body onload="onLoad()">
-    <div id="preloadContainer" style="background-color:rgba(0,0,0,1)"><div style="z-index: 4; position: absolute; left: 0%; top: 50%; width: 100.00%; height: 10.00%"><div style="text-align:left; color:#000; "><DIV STYLE="text-align:center;"><SPAN STYLE="letter-spacing:0px;color:#777777;font-size:14px;font-family:Arial, Helvetica, sans-serif;">Welcome to the City of Austin's 360 VR experience! Loading, please wait...</SPAN></DIV><p STYLE="margin:0; line-height:12px;"><BR STYLE="letter-spacing:0px;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:center;"><SPAN STYLE="letter-spacing:0px;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#0000ff;"><A TARGET="_blank" HREF="http://www.3dvista.com" STYLE="text-decoration:none; color:inherit;"><SPAN STYLE="color:#999999;"><U>www.austintexas.gov</U></SPAN></A></SPAN></SPAN></DIV></div></div></div>
-    <div id="preloadError"></div>
+    <div id="preloadContainer" style="background-color:rgba(0,0,0,1)"><div style="z-index: 4; position: absolute; left: 0%; top: 50%; width: 100.00%; height: 10.00%"><div style="text-align:left; color:#000; "><DIV STYLE="text-align:center;"><SPAN STYLE="letter-spacing:0px;color:#777777;font-size:14px;font-family:Arial, Helvetica, sans-serif;">Welcome to the City of Austin's 360 VR experience! Loading, please wait...</SPAN></DIV><p STYLE="margin:0; line-height:12px;"><BR STYLE="letter-spacing:0px;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:center;"><SPAN STYLE="letter-spacing:0px;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#0000ff;"><A HREF="http://www.3dvista.com" TARGET="_blank" STYLE="text-decoration:none; color:inherit;"><SPAN STYLE="color:#999999;"><U>www.austintexas.gov</U></SPAN></A></SPAN></SPAN></DIV></div></div></div>
     <div id="viewer"></div>
 </body>
 </html>
